@@ -12,23 +12,21 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     dialectModule: mysql2,
     logging: false,
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 30000,
-      acquire: 10000,
-    },
   },
 );
 
-async () => {
+// 🔥 FUNÇÃO REALMENTE EXECUTADA
+const conectarBanco = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Deu certo conectar cara.......");
+    console.log("✅ Conectado ao banco com sucesso");
   } catch (erro) {
-    console.log("erro ao conectar com o servidor" + errp);
+    console.error("❌ Erro ao conectar no banco:", erro.message);
   }
 };
+
+// CHAMA A FUNÇÃO
+conectarBanco();
 
 module.exports = {
   Sequelize,

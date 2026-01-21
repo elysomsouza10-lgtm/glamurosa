@@ -25,11 +25,10 @@ app.get("/", async (req, res) => {
     const produtos = await Produto.findAll();
     res.json(produtos);
   } catch (erro) {
-    res.status(500).send("algo deu errado...");
+    console.error("❌ ERRO REAL:", erro);
+    res.status(500).json({
+      mensagem: "algo deu errado",
+      erro: erro.message,
+    });
   }
-});
-
-const PORT = process.env.PORT || 8081;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("ta rodando...!");
 });
