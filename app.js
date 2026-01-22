@@ -1,16 +1,18 @@
 const express = require("express");
 const app = express();
-const db = require("./db");
+const db = require("./db"); // importa o sequelize correto
 const Produto = require("./models/Produtos");
 
 app.use(express.json());
 
+// SINCRONIZA BANCO ANTES DAS ROTAS
 (async () => {
   try {
-    await db.sequelize.sync();
-    console.log("✅ Banco sincronizado");
+    await db.sequelize.authenticate(); // garante conexão
+    await db.sequelize.sync(); // cria tabelas se não existirem
+    console.log("✅ Conectado e tabelas sincronizadas");
   } catch (erro) {
-    console.error("❌ Erro ao sincronizar:", erro);
+    console.error("❌ ERRO DE CONEXÃO:", erro);
   }
 })();
 
