@@ -1,8 +1,20 @@
 const express = require("express");
 const app = express();
-const Produto = require("./models/Produtos"); // confere o nome do arquivo
+const db = require("./db"); // importa o sequelize corretamente
+const Produto = require("./models/Produtos"); // Model do Produto
 
-app.use(express.json()); // OBRIGATÓRIO
+app.use(express.json()); // obrigatório
+
+// SINCRONIZAÇÃO DO BANCO
+(async () => {
+  try {
+    await db.sequelize.authenticate(); // testa conexão
+    await db.sequelize.sync(); // cria tabelas se não existirem
+    console.log("✅ Banco conectado e tabelas sincronizadas");
+  } catch (erro) {
+    console.error("❌ Erro ao conectar/sincronizar:", erro);
+  }
+})();
 
 // Criar produto
 app.post("/cadastro", async (req, res) => {
@@ -31,5 +43,5 @@ app.get("/", async (req, res) => {
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("ta rodando...!");
+  console.log("🚀 Servidor rodando na porta", PORT);
 });
