@@ -1,8 +1,18 @@
 const express = require("express");
 const app = express();
-const Produto = require("./models/Produtos"); // confere o nome do arquivo
+const db = require("./db");
+const Produto = require("./models/Produtos");
 
-app.use(express.json()); // OBRIGATÓRIO
+app.use(express.json());
+
+(async () => {
+  try {
+    await db.sequelize.sync();
+    console.log("✅ Banco sincronizado");
+  } catch (erro) {
+    console.error("❌ Erro ao sincronizar:", erro);
+  }
+})();
 
 // Criar produto
 app.post("/cadastro", async (req, res) => {
@@ -32,4 +42,7 @@ app.get("/", async (req, res) => {
     });
   }
 });
-app.listen(process.env.PORT || 3000);
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("🚀 Servidor rodando");
+});
