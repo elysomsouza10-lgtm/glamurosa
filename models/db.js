@@ -26,7 +26,7 @@ async () => {
     await sequelize.authenticate();
     console.log("Deu certo conectar cara.......");
   } catch (erro) {
-    console.log("erro ao conectar com o servidor" + errp);
+    console.log("erro ao conectar com o servidor" + erro);
   }
 };
 
