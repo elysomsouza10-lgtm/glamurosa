@@ -2,49 +2,24 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurante Sabor Caseiro</title>
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
-      defer
-    ></script>
-    <script src="script.js" defer></script>
+    <title>Restaurante</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header id="header">
-      <div class="container-header">
-        <h1>Restaurante Sabor Caseiro</h1>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="cardapio.html">Cardápio</a>
-          <a href="sobre.html">Sobre</a>
-          <a href="contato.html">Contato</a>
-          <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
-        </nav>
-      </div>
+    <header>
+      <h1>Restaurante Sabor Caseiro</h1>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
+        <a href="contato.html">Contato</a>
+      </nav>
     </header>
 
     <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-text">
-        <h2>O melhor sabor da cidade</h2>
-        <p>Comida feita com amor para você e sua família.</p>
-        <a href="cardapio.html" class="btn-hero">Ver Cardápio</a>
-      </div>
+      <h2>O melhor sabor da cidade</h2>
     </section>
 
-    <main>
-      <section id="destaques">
-        <h2>Destaques do Restaurante</h2>
-        <div class="destaques-grid" id="sliderProdutos">
-          <!-- Produtos serão carregados pelo script -->
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>© 2026 Restaurante Sabor Caseiro - Todos os direitos reservados</p>
-    </footer>
+    <script src="js/script.js"></script>
   </body>
 </html>

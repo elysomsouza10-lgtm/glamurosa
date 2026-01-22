@@ -1,32 +1,27 @@
-const db = require("./db");
+const express = require("express");
+const router = express.Router();
 
-[
-  {
-    id: 1,
-    nome: "Anel de Ouro",
-    preco: 1299.99,
-    descricao: "Anel de ouro 18k com diamante.",
-    imagem: "/images/anel_ouro.jpg",
-  },
-  {
-    id: 2,
-    nome: "Brinco de Pérola",
-    preco: 499.5,
-    descricao: "Brinco delicado com pérola natural.",
-    imagem: "/images/brinco_perola.jpg",
-  },
-  {
-    id: 3,
-    nome: "Colar Luxo",
-    preco: 1999.0,
-    descricao: "Colar de ouro com pedras preciosas.",
-    imagem: "/images/colar_luxo.jpg",
-  },
-  {
-    id: 4,
-    nome: "Pulseira Elegante",
-    preco: 799.9,
-    descricao: "Pulseira de ouro rosa, design sofisticado.",
-    imagem: "/images/pulseira.jpg",
-  },
-];
+router.get("/", (req, res) => {
+  res.json([
+    {
+      id: 1,
+      nome: "Feijoada Completa",
+      preco: 35,
+      imagem: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5",
+    },
+    {
+      id: 2,
+      nome: "Strogonoff de Frango",
+      preco: 28,
+      imagem: "https://images.unsplash.com/photo-1604908177527-3e07f403b416",
+    },
+    {
+      id: 3,
+      nome: "Lasanha à Bolonhesa",
+      preco: 32,
+      imagem: "https://images.unsplash.com/photo-1604908177526-2d019e5f1d4d",
+    },
+  ]);
+});
+
+module.exports = router;
