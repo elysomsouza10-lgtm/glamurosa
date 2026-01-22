@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Produtos estáticos
   const produtos = [
     {
       id: 1,
@@ -23,20 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
+  // Carrinho
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+  const listaProdutos = document.getElementById("listaProdutos");
+  const slider = document.getElementById("sliderProdutos");
   const itensCarrinho = document.getElementById("itensCarrinho");
   const totalSpan = document.getElementById("total");
   const btnCheckout = document.getElementById("btnCheckout");
   const qrContainer = document.getElementById("qrCodeContainer");
-  const resumoPedido = document.getElementById("resumoPedido");
   const cartCount = document.getElementById("cart-count");
 
-  const qrModal = document.getElementById("qrModal");
-  const btnPagamentoConcluido = document.getElementById(
-    "btnPagamentoConcluido",
-  );
-  const spanClose = document.querySelector(".close");
-
+  // Atualizar carrinho
   function atualizarCarrinho() {
     if (itensCarrinho) {
       itensCarrinho.innerHTML = carrinho
@@ -54,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
   }
 
+  // Adicionar ao carrinho
   window.adicionarCarrinho = function (id) {
     const produto = produtos.find((p) => p.id === id);
     carrinho.push(produto);
@@ -61,38 +60,26 @@ document.addEventListener("DOMContentLoaded", () => {
     alert(`${produto.nome} adicionado ao carrinho!`);
   };
 
+  // Remover do carrinho
   window.removerDoCarrinho = function (i) {
     carrinho.splice(i, 1);
     atualizarCarrinho();
   };
 
-  // Checkout → abrir modal e gerar QR code
+  // Checkout → gerar QR code
   if (btnCheckout) {
     btnCheckout.addEventListener("click", () => {
       if (carrinho.length === 0) return alert("Carrinho vazio!");
 
-      // Mostrar modal
-      qrModal.style.display = "block";
-
-      // Limpar containers
-      qrContainer.innerHTML = "";
-      resumoPedido.innerHTML = "";
-
-      // Resumo do pedido
-      carrinho.forEach((p) => {
-        const div = document.createElement("div");
-        div.innerHTML = `<span>${p.nome}</span><span>R$ ${p.preco.toFixed(2)}</span>`;
-        resumoPedido.appendChild(div);
-      });
-
       const total = carrinho.reduce((acc, p) => acc + p.preco, 0).toFixed(2);
-      const divTotal = document.createElement("div");
-      divTotal.style.fontWeight = "bold";
-      divTotal.innerHTML = `<span>Total</span><span>R$ ${total}</span>`;
-      resumoPedido.appendChild(divTotal);
 
-      // Gerar QR code (link fictício PIX)
+      // Limpar QR code antigo
+      qrContainer.innerHTML = "";
+
+      // Link de pagamento (exemplo PIX)
       const pagamentoLink = `https://pix.exemplo.com.br/pagar?valor=${total}`;
+
+      // Gerar QR code
       new QRCode(qrContainer, {
         text: pagamentoLink,
         width: 200,
@@ -100,22 +87,62 @@ document.addEventListener("DOMContentLoaded", () => {
         colorDark: "#000000",
         colorLight: "#ffffff",
       });
+
+      alert(`QR code gerado! Escaneie para pagar R$ ${total}`);
+
+      // Opcional: limpar carrinho só depois que o pagamento for confirmado
+      // carrinho = [];
+      // atualizarCarrinho();
     });
   }
 
-  // Fechar modal
-  spanClose.onclick = () => (qrModal.style.display = "none");
-  window.onclick = (e) => {
-    if (e.target == qrModal) qrModal.style.display = "none";
-  };
-
-  // Pagamento concluído
-  btnPagamentoConcluido.addEventListener("click", () => {
-    alert("Pagamento concluído com sucesso!");
-    carrinho = [];
-    atualizarCarrinho();
-    qrModal.style.display = "none";
-  });
-
   atualizarCarrinho();
+
+  // Carregar produtos (lista e slider)
+  if (listaProdutos) {
+    listaProdutos.innerHTML = produtos
+      .map(
+        (p) => `
+      <div class="produto-card">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <span>R$ ${p.preco.toFixed(2)}</span>
+        <button onclick="adicionarCarrinho(${p.id})">Adicionar</button>
+      </div>
+    `,
+      )
+      .join("");
+  }
+
+  if (slider) {
+    slider.innerHTML = produtos
+      .map(
+        (p) => `
+      <div class="produto-card">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <span>R$ ${p.preco.toFixed(2)}</span>
+        <button onclick="adicionarCarrinho(${p.id})">Adicionar</button>
+      </div>
+    `,
+      )
+      .join("");
+
+    if (gsap)
+      gsap.from(".produto-card", {
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 0.5,
+      });
+  }
+
+  // Header scroll
+  const header = document.getElementById("header");
+  if (header) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    });
+  }
 });
