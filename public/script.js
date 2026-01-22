@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const itensCarrinho = document.getElementById("itensCarrinho");
   const totalSpan = document.getElementById("total");
   const btnCheckout = document.getElementById("btnCheckout");
+  const qrContainer = document.getElementById("qrCodeContainer");
   const cartCount = document.getElementById("cart-count");
 
   // Atualizar carrinho
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
   }
 
-  // Adicionar
+  // Adicionar ao carrinho
   window.adicionarCarrinho = function (id) {
     const produto = produtos.find((p) => p.id === id);
     carrinho.push(produto);
@@ -59,27 +60,45 @@ document.addEventListener("DOMContentLoaded", () => {
     alert(`${produto.nome} adicionado ao carrinho!`);
   };
 
-  // Remover
+  // Remover do carrinho
   window.removerDoCarrinho = function (i) {
     carrinho.splice(i, 1);
     atualizarCarrinho();
   };
 
-  // Checkout
+  // Checkout → gerar QR code
   if (btnCheckout) {
     btnCheckout.addEventListener("click", () => {
       if (carrinho.length === 0) return alert("Carrinho vazio!");
-      alert(
-        `Compra finalizada! Total: R$ ${carrinho.reduce((acc, p) => acc + p.preco, 0).toFixed(2)}`,
-      );
-      carrinho = [];
-      atualizarCarrinho();
+
+      const total = carrinho.reduce((acc, p) => acc + p.preco, 0).toFixed(2);
+
+      // Limpar QR code antigo
+      qrContainer.innerHTML = "";
+
+      // Link de pagamento (exemplo PIX)
+      const pagamentoLink = `https://pix.exemplo.com.br/pagar?valor=${total}`;
+
+      // Gerar QR code
+      new QRCode(qrContainer, {
+        text: pagamentoLink,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+      });
+
+      alert(`QR code gerado! Escaneie para pagar R$ ${total}`);
+
+      // Opcional: limpar carrinho só depois que o pagamento for confirmado
+      // carrinho = [];
+      // atualizarCarrinho();
     });
   }
 
   atualizarCarrinho();
 
-  // Carregar produtos
+  // Carregar produtos (lista e slider)
   if (listaProdutos) {
     listaProdutos.innerHTML = produtos
       .map(

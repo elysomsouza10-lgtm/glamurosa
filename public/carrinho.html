@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carrinho - Restaurante Sabor Caseiro</title>
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      defer
+    ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -16,7 +24,7 @@
           <a href="cardapio.html">Cardápio</a>
           <a href="sobre.html">Sobre</a>
           <a href="contato.html">Contato</a>
-          <a href="carrinho.html">Carrinho</a>
+          <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
         </nav>
       </div>
     </header>
@@ -29,6 +37,12 @@
           <h3>Total: R$ <span id="total">0</span></h3>
           <button id="btnCheckout">Finalizar Pedido</button>
         </div>
+
+        <!-- Container do QR code -->
+        <div
+          id="qrCodeContainer"
+          style="text-align: center; margin-top: 20px"
+        ></div>
       </section>
     </main>
 
