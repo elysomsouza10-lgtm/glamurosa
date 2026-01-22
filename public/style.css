@@ -1,205 +1,55 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-}
-
-body {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-header {
-  background: #8b0000;
-  color: #fff;
-  padding: 20px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 100;
-  transition: background 0.3s;
-}
-
-header.scrolled {
-  background: #5c0000;
-}
-
-header h1 {
-  font-size: 2rem;
-}
-
-nav {
-  margin-top: 10px;
-}
-
-nav a {
-  color: #fff;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-.hero {
-  background: url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5")
-    center/cover no-repeat;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-top: 80px;
-}
-
-.hero-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.hero-text {
-  color: #fff;
-  text-align: center;
-  z-index: 2;
-}
-
-.hero-text h2 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
-.hero-text p {
-  font-size: 1.2rem;
-}
-
-section {
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #8b0000;
-}
-
-/* Slider Cardápio */
-.slider-container {
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.slider {
-  display: flex;
-  transition: transform 0.5s ease;
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.card {
-  background: #fff;
-  padding: 20px;
+.card img {
+  width: 100%;
   border-radius: 8px;
-  min-width: 250px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.card h3 {
-  color: #5c0000;
   margin-bottom: 10px;
 }
 
-.card p {
-  margin-bottom: 10px;
-}
-
-.card .price {
-  font-weight: bold;
-  color: #8b0000;
-}
-
-.slider-container button {
+.add-cart {
   background: #8b0000;
-  color: #fff;
+  color: white;
   border: none;
   padding: 10px;
   cursor: pointer;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  border-radius: 5px;
 }
 
-.slider-container .prev {
-  left: 10px;
+.add-cart:hover {
+  background: #5c0000;
 }
 
-.slider-container .next {
-  right: 10px;
+#cart-items {
+  max-width: 600px;
+  margin: 20px auto;
 }
 
-/* Sobre */
-.about {
-  text-align: center;
-  line-height: 1.6;
-}
-
-/* Contato */
-form {
+.cart-item {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  margin: auto;
-}
-
-input,
-textarea {
+  justify-content: space-between;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
-button {
-  background: #8b0000;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 5px;
-}
-
-button:hover {
-  background: #5c0000;
-}
-
-footer {
-  background: #5c0000;
-  color: #fff;
+.cart-total {
   text-align: center;
-  padding: 20px;
+  margin-top: 20px;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .hero-text h2 {
-    font-size: 2rem;
-  }
+#checkout {
+  background: #8b0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
 
-  .slider {
-    gap: 10px;
-  }
-
-  .card {
-    min-width: 200px;
-  }
+#checkout:hover {
+  background: #5c0000;
 }
