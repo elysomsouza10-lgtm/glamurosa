@@ -1,36 +1,31 @@
 const express = require("express");
-const app = express();
-const Produto = require("./models/Produtos"); // confere o nome do arquivo
 const path = require("path");
+const fs = require("fs");
+const app = express();
 
-// Servir arquivos estáticos (HTML, CSS, JS)
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.json()); // OBRIGATÓRIO
-
-// Criar produto
-app.post("/cadastro", async (req, res) => {
-  try {
-    await Produto.create({
-      nome: req.body.nome,
-      preco: req.body.preco,
-      descricao: req.body.descricao,
-    });
-
-    res.status(201).send("deu certo");
-  } catch (erro) {
-    res.status(400).send("deu erro: " + erro.message);
-  }
+// Listar produtos
+app.get("/api/produtos", (req, res) => {
+  fs.readFile(path.join(__dirname, "products.json"), "utf8", (err, data) => {
+    if (err)
+      return res.status(500).json({ error: "Erro ao carregar produtos" });
+    res.json(JSON.parse(data));
+  });
 });
 
-// Listar produtos
-app.get("/", async (req, res) => {
-  try {
-    const produtos = await Produto.findAll();
-    res.json(produtos);
-  } catch (erro) {
-    res.status(500).send("algo deu errado...");
-  }
+// Detalhe de produto
+app.get("/api/produtos/:id", (req, res) => {
+  fs.readFile(path.join(__dirname, "products.json"), "utf8", (err, data) => {
+    if (err)
+      return res.status(500).json({ error: "Erro ao carregar produtos" });
+    const produtos = JSON.parse(data);
+    const produto = produtos.find((p) => p.id == req.params.id);
+    if (!produto)
+      return res.status(404).json({ error: "Produto não encontrado" });
+    res.json(produto);
+  });
 });
 
 const PORT = process.env.PORT || 8081;

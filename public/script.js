@@ -1,108 +1,94 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const lista = document.getElementById("listaProdutos");
-  const form = document.getElementById("formCadastro");
-  const slider = document.getElementById("sliderProdutos");
+let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+const listaProdutos = document.getElementById("listaProdutos");
+const slider = document.getElementById("sliderProdutos");
+const itensCarrinho = document.getElementById("itensCarrinho");
+const totalSpan = document.getElementById("total");
+const btnCheckout = document.getElementById("btnCheckout");
 
-  // Função para listar todos produtos
-  async function listarProdutos() {
-    lista.innerHTML = "Carregando...";
-    slider.innerHTML = "";
-    try {
-      const res = await fetch("http://localhost:8081/");
-      const produtos = await res.json();
+// Carregar produtos da API
+async function carregarProdutos() {
+  const res = await fetch("/api/produtos");
+  const produtos = await res.json();
 
-      if (produtos.length === 0) {
-        lista.innerHTML = "<p>Nenhum produto cadastrado.</p>";
-        return;
-      }
+  // Slider destaques (primeiros 3)
+  slider.innerHTML = produtos
+    .slice(0, 3)
+    .map(
+      (p) => `
+    <div class="produto-card">
+      <img src="${p.imagem}" alt="${p.nome}">
+      <h3>${p.nome}</h3>
+      <span>R$ ${p.preco.toFixed(2)}</span>
+      <button onclick="adicionarCarrinho(${p.id})">Adicionar</button>
+    </div>
+  `,
+    )
+    .join("");
 
-      // Slider com destaques (primeiros 5)
-      produtos.slice(0, 5).forEach((p) => {
-        slider.innerHTML += `
-          <div class="produto-card">
-            <h3>${p.nome}</h3>
-            <p>${p.descricao}</p>
-            <span>R$ ${p.preco.toFixed(2)}</span>
-          </div>
-        `;
-      });
+  // Lista completa
+  listaProdutos.innerHTML = produtos
+    .map(
+      (p) => `
+    <div class="produto-card">
+      <img src="${p.imagem}" alt="${p.nome}">
+      <h3>${p.nome}</h3>
+      <span>R$ ${p.preco.toFixed(2)}</span>
+      <button onclick="adicionarCarrinho(${p.id})">Adicionar</button>
+    </div>
+  `,
+    )
+    .join("");
 
-      // Lista completa
-      lista.innerHTML = produtos
-        .map(
-          (p) => `
-        <div class="produto-card">
-          <h3>${p.nome}</h3>
-          <p>${p.descricao}</p>
-          <span>R$ ${p.preco.toFixed(2)}</span>
-        </div>
-      `,
-        )
-        .join("");
+  gsap.from(".produto-card", {
+    y: 50,
+    opacity: 0,
+    stagger: 0.2,
+    duration: 0.5,
+  });
+}
 
-      // Animações GSAP
-      gsap.from(".produto-card", {
-        duration: 0.6,
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-      });
-      gsap.from(".slider .produto-card", {
-        duration: 0.6,
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-      });
-    } catch (err) {
-      lista.innerHTML = "Erro ao carregar produtos.";
-    }
-  }
+// Carrinho
+function atualizarCarrinho() {
+  itensCarrinho.innerHTML = carrinho
+    .map(
+      (p, i) => `
+    <div>
+      ${p.nome} - R$ ${p.preco.toFixed(2)}
+      <button onclick="removerDoCarrinho(${i})">❌</button>
+    </div>
+  `,
+    )
+    .join("");
 
-  // Formulário de cadastro
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const nome = document.getElementById("nome").value;
-    const preco = parseFloat(document.getElementById("preco").value);
-    const descricao = document.getElementById("descricao").value;
+  const total = carrinho.reduce((acc, p) => acc + p.preco, 0);
+  totalSpan.textContent = total.toFixed(2);
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
 
-    try {
-      const res = await fetch("http://localhost:8081/cadastro", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, preco, descricao }),
-      });
+function adicionarCarrinho(id) {
+  fetch("/api/produtos")
+    .then((res) => res.json())
+    .then((produtos) => {
+      const produto = produtos.find((p) => p.id === id);
+      carrinho.push(produto);
+      atualizarCarrinho();
+    });
+}
 
-      if (res.ok) {
-        alert("Produto cadastrado!");
-        form.reset();
-        listarProdutos();
-      } else {
-        const msg = await res.text();
-        alert("Erro: " + msg);
-      }
-    } catch (err) {
-      alert("Erro ao cadastrar: " + err);
-    }
+function removerDoCarrinho(i) {
+  carrinho.splice(i, 1);
+  atualizarCarrinho();
+}
+
+btnCheckout &&
+  btnCheckout.addEventListener("click", () => {
+    if (carrinho.length === 0) return alert("Carrinho vazio!");
+    alert(
+      `Compra finalizada! Total: R$ ${carrinho.reduce((acc, p) => acc + p.preco, 0).toFixed(2)}`,
+    );
+    carrinho = [];
+    atualizarCarrinho();
   });
 
-  listarProdutos();
-
-  // Animações do hero e header
-  gsap.from("header", { y: -100, opacity: 0, duration: 1 });
-  gsap.from(".hero-text h2", { y: 50, opacity: 0, duration: 1, delay: 0.5 });
-  gsap.from(".hero-text p", { y: 50, opacity: 0, duration: 1, delay: 0.7 });
-  gsap.from(".hero-text .btn", { y: 50, opacity: 0, duration: 1, delay: 0.9 });
-
-  // ScrollTrigger para seções
-  gsap.utils
-    .toArray(".produtos, .produtos-destaque, .cadastro")
-    .forEach((section) => {
-      gsap.from(section, {
-        scrollTrigger: section,
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.2,
-      });
-    });
-});
+carregarProdutos();
+atualizarCarrinho();

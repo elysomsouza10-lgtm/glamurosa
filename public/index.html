@@ -4,86 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joalheria Lux</title>
-
-    <!-- Fonts elegantes -->
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
-
-    <!-- GSAP para animações -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"
       defer
     ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- Header fixo -->
     <header>
       <div class="container-header">
         <h1>Joalheria Lux</h1>
         <nav>
-          <a href="#hero">Início</a>
           <a href="#produtos-destaque">Destaques</a>
           <a href="#produtos">Todos Produtos</a>
-          <a href="#cadastro">Cadastrar</a>
+          <a href="carrinho.html">Carrinho</a>
         </nav>
       </div>
     </header>
 
-    <!-- Hero com parallax -->
-    <section id="hero" class="hero">
+    <section class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-text">
         <h2>Brilhe com Elegância</h2>
-        <p>Descubra joias que transformam momentos em memórias inesquecíveis</p>
+        <p>
+          Descubra joias que transformam momentos em memórias inesquecíveis.
+        </p>
         <a href="#produtos-destaque" class="btn">Ver Destaques</a>
       </div>
     </section>
 
     <main>
-      <!-- Produtos em destaque com slider -->
       <section id="produtos-destaque" class="produtos-destaque">
         <h2>Produtos em Destaque</h2>
-        <div class="slider" id="sliderProdutos">
-          <!-- Cards carregados pelo JS -->
-        </div>
+        <div class="slider" id="sliderProdutos"></div>
       </section>
 
-      <!-- Lista completa de produtos -->
       <section id="produtos" class="produtos">
         <h2>Todos Produtos</h2>
         <div class="lista-produtos" id="listaProdutos"></div>
-      </section>
-
-      <!-- Formulário de cadastro -->
-      <section id="cadastro" class="cadastro">
-        <h2>Cadastrar Produto</h2>
-        <form id="formCadastro">
-          <input type="text" id="nome" placeholder="Nome da joia" required />
-          <input
-            type="number"
-            step="0.01"
-            id="preco"
-            placeholder="Preço (R$)"
-            required
-          />
-          <textarea
-            id="descricao"
-            placeholder="Descrição da joia"
-            rows="3"
-            required
-          ></textarea>
-          <button type="submit">Cadastrar</button>
-        </form>
       </section>
     </main>
 
