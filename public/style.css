@@ -1,148 +1,63 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  color: #333;
-}
-header {
-  background: #8b0000;
-  color: #fff;
-  padding: 15px;
+/* Modal QR Code */
+.modal {
+  display: none;
   position: fixed;
-  width: 100%;
+  z-index: 200;
+  left: 0;
   top: 0;
-  z-index: 100;
-}
-header.scrolled {
-  background: #5c0000;
-}
-header nav a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-header nav a:hover {
-  text-decoration: underline;
-}
-.container-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.hero {
-  height: 400px;
-  background: url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80")
-    center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin-top: 70px;
-}
-.hero-overlay {
-  position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
 }
-.hero-text {
-  position: relative;
-  color: #fff;
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
   text-align: center;
+  position: relative;
 }
-.hero-text h2 {
-  font-size: 3rem;
-  margin-bottom: 10px;
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #8b0000;
 }
-.btn-hero {
-  display: inline-block;
-  margin-top: 10px;
+
+.modal-content button {
+  margin-top: 20px;
   padding: 10px 20px;
   background: #8b0000;
   color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-}
-.btn-hero:hover {
-  background: #5c0000;
-}
-.menu-grid,
-.destaques-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin: 20px;
-}
-.card,
-.produto-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.card img,
-.produto-card img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-.add-cart,
-button {
-  padding: 10px 15px;
   border: none;
-  background: #8b0000;
-  color: #fff;
   border-radius: 5px;
   cursor: pointer;
 }
-.add-cart:hover,
-button:hover {
+
+.modal-content button:hover {
   background: #5c0000;
 }
-#itensCarrinho {
-  max-width: 600px;
-  margin: 20px auto;
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
 }
-.cart-item {
+
+#resumoPedido {
+  text-align: left;
+  margin-top: 10px;
+}
+
+#resumoPedido div {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-.cart-total {
-  text-align: center;
-  margin-top: 20px;
-}
-#btnCheckout {
-  padding: 10px 20px;
-  background: #8b0000;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-#btnCheckout:hover {
-  background: #5c0000;
-}
-.contato-info {
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin: 20px;
-}
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #5c0000;
-  color: #fff;
-  margin-top: 40px;
-}
-@media (max-width: 600px) {
-  .hero-text h2 {
-    font-size: 2rem;
-  }
+  margin-bottom: 5px;
 }
