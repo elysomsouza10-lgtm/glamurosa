@@ -9,14 +9,10 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
       defer
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"
-      defer
-    ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
+    <header id="header">
       <div class="container-header">
         <h1>Restaurante Sabor Caseiro</h1>
         <nav>
@@ -41,31 +37,8 @@
     <main>
       <section id="destaques">
         <h2>Destaques do Restaurante</h2>
-        <div class="destaques-grid">
-          <div class="card destaque">
-            <img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-              alt="Feijoada"
-            />
-            <h3>Feijoada Completa</h3>
-            <span class="price">R$ 35,00</span>
-          </div>
-          <div class="card destaque">
-            <img
-              src="https://images.unsplash.com/photo-1604908177527-3e07f403b416"
-              alt="Strogonoff"
-            />
-            <h3>Strogonoff de Frango</h3>
-            <span class="price">R$ 28,00</span>
-          </div>
-          <div class="card destaque">
-            <img
-              src="https://images.unsplash.com/photo-1604908177526-2d019e5f1d4d"
-              alt="Lasanha"
-            />
-            <h3>Lasanha à Bolonhesa</h3>
-            <span class="price">R$ 32,00</span>
-          </div>
+        <div class="destaques-grid" id="sliderProdutos">
+          <!-- Produtos serão carregados pelo script -->
         </div>
       </section>
     </main>

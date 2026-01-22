@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Carrinho - Restaurante Sabor Caseiro</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="cart.js" defer></script>
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
+    <header id="header">
       <div class="container-header">
         <h1>Restaurante Sabor Caseiro</h1>
         <nav>
@@ -24,10 +24,10 @@
     <main>
       <section id="carrinho">
         <h2>Seu Carrinho</h2>
-        <div id="cart-items"></div>
+        <div id="itensCarrinho"></div>
         <div class="cart-total">
           <h3>Total: R$ <span id="total">0</span></h3>
-          <button id="checkout">Finalizar Pedido</button>
+          <button id="btnCheckout">Finalizar Pedido</button>
         </div>
       </section>
     </main>

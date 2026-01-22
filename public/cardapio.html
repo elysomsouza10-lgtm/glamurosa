@@ -8,7 +8,7 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
+    <header id="header">
       <div class="container-header">
         <h1>Restaurante Sabor Caseiro</h1>
         <nav>
@@ -24,35 +24,8 @@
     <main>
       <section id="cardapio">
         <h2>Nosso Cardápio</h2>
-        <div class="menu-grid">
-          <div class="card" data-nome="Feijoada Completa" data-preco="35">
-            <img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-              alt="Feijoada"
-            />
-            <h3>Feijoada Completa</h3>
-            <span class="price">R$ 35,00</span>
-            <button class="add-cart">Adicionar ao carrinho</button>
-          </div>
-          <div class="card" data-nome="Strogonoff de Frango" data-preco="28">
-            <img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=500&q=60
-"
-              alt="Strogonoff"
-            />
-            <h3>Strogonoff de Frango</h3>
-            <span class="price">R$ 28,00</span>
-            <button class="add-cart">Adicionar ao carrinho</button>
-          </div>
-          <div class="card" data-nome="Lasanha à Bolonhesa" data-preco="32">
-            <img
-              src="https://images.unsplash.com/photo-1604908177526-2d019e5f1d4d"
-              alt="Lasanha"
-            />
-            <h3>Lasanha à Bolonhesa</h3>
-            <span class="price">R$ 32,00</span>
-            <button class="add-cart">Adicionar ao carrinho</button>
-          </div>
+        <div class="menu-grid" id="listaProdutos">
+          <!-- Produtos serão carregados pelo script -->
         </div>
       </section>
     </main>
