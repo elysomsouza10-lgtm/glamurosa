@@ -139,6 +139,33 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 });
+// Adiciona produtos ao localStorage
+document.addEventListener("DOMContentLoaded", () => {
+  const addButtons = document.querySelectorAll(".add-cart");
+  const cartCount = document.getElementById("cart-count");
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cartCount.textContent = cart.length;
+  }
+
+  addButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.parentElement;
+      const product = {
+        nome: card.dataset.nome,
+        preco: Number(card.dataset.preco),
+      };
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert(`${product.nome} adicionado ao carrinho!`);
+    });
+  });
+
+  updateCartCount();
+});
 document.addEventListener("DOMContentLoaded", () => {
   const addButtons = document.querySelectorAll(".add-cart");
   const cartCount = document.getElementById("cart-count");
