@@ -1,20 +1,8 @@
 const express = require("express");
 const app = express();
-const db = require("./db"); // importa o sequelize correto
-const Produto = require("./models/Produtos");
+const Produto = require("./models/Produtos"); // confere o nome do arquivo
 
-app.use(express.json());
-
-// SINCRONIZA BANCO ANTES DAS ROTAS
-(async () => {
-  try {
-    await db.sequelize.authenticate(); // garante conexão
-    await db.sequelize.sync(); // cria tabelas se não existirem
-    console.log("✅ Conectado e tabelas sincronizadas");
-  } catch (erro) {
-    console.error("❌ ERRO DE CONEXÃO:", erro);
-  }
-})();
+app.use(express.json()); // OBRIGATÓRIO
 
 // Criar produto
 app.post("/cadastro", async (req, res) => {
@@ -37,14 +25,11 @@ app.get("/", async (req, res) => {
     const produtos = await Produto.findAll();
     res.json(produtos);
   } catch (erro) {
-    console.error("❌ ERRO REAL:", erro);
-    res.status(500).json({
-      mensagem: "algo deu errado",
-      erro: erro.message,
-    });
+    res.status(500).send("algo deu errado...");
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("🚀 Servidor rodando");
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("ta rodando...!");
 });
