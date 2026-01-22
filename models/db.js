@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const mysql2 = require("mysql2");
 
 const sequelize = new Sequelize(
-  process.env.MYSQLDB_DATABASE,
+  process.env.MYSQLDATABASE,
   process.env.MYSQLUSER,
   process.env.MYSQLPASSWORD,
   {
