@@ -139,14 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 });
-// Adiciona produtos ao localStorage
 document.addEventListener("DOMContentLoaded", () => {
   const addButtons = document.querySelectorAll(".add-cart");
   const cartCount = document.getElementById("cart-count");
 
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cartCount.textContent = cart.length;
+    if (cartCount) cartCount.textContent = cart.length;
   }
 
   addButtons.forEach((btn) => {

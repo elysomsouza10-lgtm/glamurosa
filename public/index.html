@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurante Sabor Caseiro</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="style.css" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
@@ -20,14 +16,15 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header id="header">
+    <header>
       <div class="container-header">
         <h1>Restaurante Sabor Caseiro</h1>
         <nav>
-          <a href="index.html">Início</a>
+          <a href="index.html">Home</a>
           <a href="cardapio.html">Cardápio</a>
           <a href="sobre.html">Sobre</a>
           <a href="contato.html">Contato</a>
+          <a href="carrinho.html">Carrinho (<span id="cart-count">0</span>)</a>
         </nav>
       </div>
     </header>
@@ -37,8 +34,41 @@
       <div class="hero-text">
         <h2>O melhor sabor da cidade</h2>
         <p>Comida feita com amor para você e sua família.</p>
+        <a href="cardapio.html" class="btn-hero">Ver Cardápio</a>
       </div>
     </section>
+
+    <main>
+      <section id="destaques">
+        <h2>Destaques do Restaurante</h2>
+        <div class="destaques-grid">
+          <div class="card destaque">
+            <img
+              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+              alt="Feijoada"
+            />
+            <h3>Feijoada Completa</h3>
+            <span class="price">R$ 35,00</span>
+          </div>
+          <div class="card destaque">
+            <img
+              src="https://images.unsplash.com/photo-1604908177527-3e07f403b416"
+              alt="Strogonoff"
+            />
+            <h3>Strogonoff de Frango</h3>
+            <span class="price">R$ 28,00</span>
+          </div>
+          <div class="card destaque">
+            <img
+              src="https://images.unsplash.com/photo-1604908177526-2d019e5f1d4d"
+              alt="Lasanha"
+            />
+            <h3>Lasanha à Bolonhesa</h3>
+            <span class="price">R$ 32,00</span>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <footer>
       <p>© 2026 Restaurante Sabor Caseiro - Todos os direitos reservados</p>
