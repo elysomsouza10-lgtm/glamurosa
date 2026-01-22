@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const mysql2 = require("mysql2");
 
 const sequelize = new Sequelize(
-  process.env.MYSQLDB_DATABASE,
+  process.env.MYSQLDATABASE,
   process.env.MYSQLUSER,
   process.env.MYSQLPASSWORD,
   {
@@ -26,7 +26,7 @@ async () => {
     await sequelize.authenticate();
     console.log("Deu certo conectar cara.......");
   } catch (erro) {
-    console.log("erro ao conectar com o servidor" + errp);
+    console.log("erro ao conectar com o servidor" + erro);
   }
 };
 
