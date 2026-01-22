@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurante Sabor Caseiro</title>
+    <title>Cardápio - Restaurante Sabor Caseiro</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
@@ -32,13 +32,32 @@
       </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-text">
-        <h2>O melhor sabor da cidade</h2>
-        <p>Comida feita com amor para você e sua família.</p>
-      </div>
-    </section>
+    <main>
+      <section id="menu">
+        <h2>Nosso Cardápio</h2>
+        <div class="slider-container">
+          <button class="prev">◀</button>
+          <div class="slider" id="sliderProdutos">
+            <div class="card">
+              <h3>Feijoada Completa</h3>
+              <p>Feijão preto, carnes selecionadas e acompanhamentos.</p>
+              <span class="price">R$ 35,00</span>
+            </div>
+            <div class="card">
+              <h3>Strogonoff de Frango</h3>
+              <p>Frango ao molho cremoso com arroz e batata palha.</p>
+              <span class="price">R$ 28,00</span>
+            </div>
+            <div class="card">
+              <h3>Lasanha à Bolonhesa</h3>
+              <p>Massa fresca, molho caseiro e queijo derretido.</p>
+              <span class="price">R$ 32,00</span>
+            </div>
+          </div>
+          <button class="next">▶</button>
+        </div>
+      </section>
+    </main>
 
     <footer>
       <p>© 2026 Restaurante Sabor Caseiro - Todos os direitos reservados</p>
