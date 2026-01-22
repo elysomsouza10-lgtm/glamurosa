@@ -5,7 +5,7 @@ const Produto = require("./models/Produtos"); // confere o nome do arquivo
 app.use(express.json()); // OBRIGATÓRIO
 
 // Criar produto
-app.post("./cadastro", async (req, res) => {
+app.post("/cadastro", async (req, res) => {
   try {
     await Produto.create({
       nome: req.body.nome,
