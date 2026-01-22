@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loja de Produtos</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS moderno -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto", sans-serif;
+      }
+
+      body {
+        background-color: #f4f4f9;
+        color: #333;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        color: #1f2937;
+        margin-bottom: 10px;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 30px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      form input,
+      form textarea,
+      form button {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      form button {
+        background-color: #2563eb;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      form button:hover {
+        background-color: #1d4ed8;
+      }
+
+      .produtos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .produto {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+      }
+
+      .produto:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .produto h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #1f2937;
+      }
+
+      .produto p {
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+        color: #4b5563;
+      }
+
+      .produto span {
+        font-weight: bold;
+        color: #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Loja de Produtos</h1>
+      <p>Cadastre e visualize seus produtos</p>
+    </header>
+
+    <main>
+      <!-- Formulário para cadastro -->
+      <form id="formCadastro">
+        <input type="text" id="nome" placeholder="Nome do produto" required />
+        <input
+          type="number"
+          step="0.01"
+          id="preco"
+          placeholder="Preço"
+          required
+        />
+        <textarea
+          id="descricao"
+          placeholder="Descrição"
+          rows="3"
+          required
+        ></textarea>
+        <button type="submit">Cadastrar Produto</button>
+      </form>
+
+      <!-- Lista de produtos -->
+      <div class="produtos" id="listaProdutos"></div>
+    </main>
+
+    <!-- Script para consumir a API -->
+    <script>
+      const form = document.getElementById("formCadastro");
+      const lista = document.getElementById("listaProdutos");
+
+      // Função para listar produtos
+      async function listarProdutos() {
+        lista.innerHTML = "Carregando produtos...";
+        try {
+          const res = await fetch("http://localhost:8081/");
+          const produtos = await res.json();
+          if (produtos.length === 0) {
+            lista.innerHTML = "<p>Nenhum produto cadastrado.</p>";
+            return;
+          }
+          lista.innerHTML = produtos
+            .map(
+              (p) => `
+          <div class="produto">
+            <h3>${p.nome}</h3>
+            <p>${p.descricao}</p>
+            <span>R$ ${p.preco.toFixed(2)}</span>
+          </div>
+        `,
+            )
+            .join("");
+        } catch (erro) {
+          lista.innerHTML = "<p>Erro ao carregar produtos.</p>";
+        }
+      }
+
+      // Função para cadastrar produto
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const nome = document.getElementById("nome").value;
+        const preco = parseFloat(document.getElementById("preco").value);
+        const descricao = document.getElementById("descricao").value;
+
+        try {
+          const res = await fetch("http://localhost:8081/cadastro", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, preco, descricao }),
+          });
+
+          if (res.ok) {
+            alert("Produto cadastrado com sucesso!");
+            form.reset();
+            listarProdutos();
+          } else {
+            const msg = await res.text();
+            alert("Erro: " + msg);
+          }
+        } catch (erro) {
+          alert("Erro ao cadastrar: " + erro);
+        }
+      });
+
+      // Listar produtos ao carregar a página
+      listarProdutos();
+    </script>
+  </body>
+</html>

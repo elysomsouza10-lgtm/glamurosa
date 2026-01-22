@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const Produto = require("./models/Produtos"); // confere o nome do arquivo
+const path = require("path");
+
+// Servir arquivos estáticos (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json()); // OBRIGATÓRIO
 
