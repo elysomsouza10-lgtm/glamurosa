@@ -92,3 +92,50 @@ btnCheckout &&
 
 carregarProdutos();
 atualizarCarrinho();
+document.addEventListener("DOMContentLoaded", () => {
+  // Header muda cor ao rolar
+  const header = document.getElementById("header");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  });
+
+  // Slider cardápio
+  const slider = document.getElementById("sliderProdutos");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+  let sliderIndex = 0;
+
+  prev.addEventListener("click", () => {
+    sliderIndex = Math.max(sliderIndex - 1, 0);
+    slider.style.transform = `translateX(-${sliderIndex * 270}px)`;
+  });
+
+  next.addEventListener("click", () => {
+    sliderIndex = Math.min(sliderIndex + 1, slider.children.length - 3);
+    slider.style.transform = `translateX(-${sliderIndex * 270}px)`;
+  });
+
+  // Animações GSAP
+  gsap.from(".hero-text h2", { y: -50, opacity: 0, duration: 1 });
+  gsap.from(".hero-text p", { y: 50, opacity: 0, duration: 1, delay: 0.5 });
+  gsap.from(".card", {
+    scrollTrigger: {
+      trigger: ".card",
+      start: "top 80%",
+      toggleActions: "play none none none",
+    },
+    y: 50,
+    opacity: 0,
+    stagger: 0.2,
+    duration: 0.5,
+  });
+
+  // Formulário contato
+  const form = document.getElementById("formContato");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Mensagem enviada com sucesso!");
+    form.reset();
+  });
+});

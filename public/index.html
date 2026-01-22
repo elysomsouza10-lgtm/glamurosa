@@ -1,57 +1,99 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joalheria Lux</title>
+    <title>Restaurante Sabor Caseiro</title>
+
+    <!-- Fonte -->
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- GSAP para animações -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"
       defer
     ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
+    <header id="header">
       <div class="container-header">
-        <h1>Joalheria Lux</h1>
+        <h1>Restaurante Sabor Caseiro</h1>
         <nav>
-          <a href="#produtos-destaque">Destaques</a>
-          <a href="#produtos">Todos Produtos</a>
-          <a href="carrinho.html">Carrinho</a>
+          <a href="#inicio">Início</a>
+          <a href="#menu">Cardápio</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contato">Contato</a>
         </nav>
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="inicio">
       <div class="hero-overlay"></div>
       <div class="hero-text">
-        <h2>Brilhe com Elegância</h2>
-        <p>
-          Descubra joias que transformam momentos em memórias inesquecíveis.
-        </p>
-        <a href="#produtos-destaque" class="btn">Ver Destaques</a>
+        <h2>O melhor sabor da cidade</h2>
+        <p>Comida feita com amor para você e sua família.</p>
       </div>
     </section>
 
     <main>
-      <section id="produtos-destaque" class="produtos-destaque">
-        <h2>Produtos em Destaque</h2>
-        <div class="slider" id="sliderProdutos"></div>
+      <!-- Cardápio com slider -->
+      <section id="menu">
+        <h2>Nosso Cardápio</h2>
+        <div class="slider-container">
+          <button class="prev">◀</button>
+          <div class="slider" id="sliderProdutos">
+            <div class="card">
+              <h3>Feijoada Completa</h3>
+              <p>Feijão preto, carnes selecionadas e acompanhamentos.</p>
+              <span class="price">R$ 35,00</span>
+            </div>
+            <div class="card">
+              <h3>Strogonoff de Frango</h3>
+              <p>Frango ao molho cremoso com arroz e batata palha.</p>
+              <span class="price">R$ 28,00</span>
+            </div>
+            <div class="card">
+              <h3>Lasanha à Bolonhesa</h3>
+              <p>Massa fresca, molho caseiro e queijo derretido.</p>
+              <span class="price">R$ 32,00</span>
+            </div>
+          </div>
+          <button class="next">▶</button>
+        </div>
       </section>
 
-      <section id="produtos" class="produtos">
-        <h2>Todos Produtos</h2>
-        <div class="lista-produtos" id="listaProdutos"></div>
+      <section id="sobre">
+        <h2>Sobre Nós</h2>
+        <p class="about">
+          Somos um restaurante familiar com mais de 10 anos de experiência,
+          trazendo o verdadeiro sabor da comida caseira para você e sua família.
+        </p>
+      </section>
+
+      <section id="contato">
+        <h2>Contato</h2>
+        <form id="formContato">
+          <input type="text" placeholder="Seu nome" required />
+          <input type="email" placeholder="Seu email" required />
+          <textarea placeholder="Sua mensagem" required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
       </section>
     </main>
 
     <footer>
-      <p>© 2026 Joalheria Lux. Todos os direitos reservados.</p>
+      <p>© 2026 Restaurante Sabor Caseiro - Todos os direitos reservados</p>
     </footer>
   </body>
 </html>
